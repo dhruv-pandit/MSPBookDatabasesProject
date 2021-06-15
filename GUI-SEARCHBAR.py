@@ -1,12 +1,11 @@
-# Graphic User Interface
-
-# 1) Way to collect users input on owner of the book
-# 2) Way to display the database nicely
-# 3) The scan button that prompts barcodeReader to work
+# Graphic User Interface 
+# Searchbar 
+# INPUT: user types out the ISBN, author (exact) or title (exact)
+# OUTPUT: prints out results from the database 
 
 from tkinter import *
 
-# in tkinter canvas/window where every graphical element is located in root
+# function located in datbase_holder.py, pulls rows of the database that correspond to search
 from database_holder import SearchData
 
 root = Tk()
@@ -38,6 +37,7 @@ root.mainloop()
 
 # --------------------------------------------------------------------------------------------------
 '''
+!!!NOT READY YET!!!
 Input: rows from the database
 Output: new window with a graphic representation of the database
 '''
