@@ -20,6 +20,12 @@ Output: new window with a graphic representation of the database
 def displayData(result):
     # rows represent one book in the database
     # len(result) represents how many books were found by search function in the database
+    
+    # adds header for the search bar results
+     if (len(result[0]) == 6):
+        header = ('ISBN', 'Title', 'Author', 'Published', 'Owner of the book', 'Current holder')
+        result.insert(0, header)
+
     root2 = Tk()
     for i in range(len(result)):
         for j in range(len(result[0])):
