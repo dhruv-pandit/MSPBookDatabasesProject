@@ -71,16 +71,4 @@ def displayData(isbn, title, author, year, owner, holder):
 
 # --------------------------------------------------------------------------------------------------
 
-# Not Needed for it now
 
-
-'''
-# function that makes button do something
-def scanPressed():
-    scanLabel = Label(root2, text="When Button is pressed, barcode reading+webscraping should start").pack()
-
-# get owner's name for the database entry
-def getOwner():
-    owner = entryBox.get()
-    return owner
-'''
