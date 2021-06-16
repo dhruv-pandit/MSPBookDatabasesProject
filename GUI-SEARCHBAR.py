@@ -9,14 +9,29 @@ from tkinter import *
 from database_holder import SearchData
 
 root = Tk()
-# --------------------------------------------------------------------------------------------------
 
+# --------------------------------------------------------------------------------------------------
+'''
+Input: rows from the database
+Output: new window with a graphic representation of the database
+'''
+
+
+def displayData(result):
+    # rows represent one book in the database
+    # len(result) represents how many books were found by search function in the database
+    root2 = Tk()
+    for i in range(len(result)):
+        for j in range(6):
+            Label(root2, text = result[i][j], padx = 20).grid(row=i, column=j)
+
+# --------------------------------------------------------------------------------------------------
 
 def getSearch():
     search = searchBar.get()
     result = SearchData(search)
-    for i in result:
-        print(i)
+    root.destroy()
+    displayData(result)
 
 
 def keydown(e):
