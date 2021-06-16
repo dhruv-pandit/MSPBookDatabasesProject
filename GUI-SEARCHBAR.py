@@ -22,7 +22,7 @@ def displayData(result):
     # len(result) represents how many books were found by search function in the database
     root2 = Tk()
     for i in range(len(result)):
-        for j in range(6):
+        for j in range(len(result[0])):
             Label(root2, text = result[i][j], padx = 20).grid(row=i, column=j)
 
 # --------------------------------------------------------------------------------------------------
