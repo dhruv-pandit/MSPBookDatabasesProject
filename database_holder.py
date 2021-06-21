@@ -9,7 +9,6 @@ cursor = conn.cursor()
 
 
 # create a table
-# Available data types for sqlite: NULL, INTEGER, REAL, TEXT, BLOB
 create_library_table = """
 CREATE TABLE IF NOT EXISTS library (
   isbn TEXT PRIMARY KEY,
@@ -54,9 +53,24 @@ def SearchData(search):
     return output
 
 
+# input = name of the new holder, isbn of the book
+# receives input from changeHolder() -> keydown2() functions in GUI-SEARCHBAR
+
+def update(new_holder, isbn):
+
+
+    sql = ''' UPDATE library
+              SET holder = ?
+              WHERE isbn = ?'''
+    change = (new_holder, isbn)
+    cursor.execute(sql, change)
+    conn.commit()
+
 # commit our command
-conn.commit();
+conn.commit()
 
 # close our connection
+
+
 
 
