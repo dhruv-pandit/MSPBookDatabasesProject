@@ -46,6 +46,7 @@ Output: rows of the table containing relevant information
 
 def SearchData(search):
     sql = 'SELECT * FROM library WHERE isbn like ? OR author like ? OR title like ?'
+    search = '%'+search+'%'
     tuple = (search, search, search)
     cursor.execute(sql, tuple)
     output = cursor.fetchall()
@@ -70,7 +71,5 @@ def update(new_holder, isbn):
 conn.commit()
 
 # close our connection
-
-
 
 
