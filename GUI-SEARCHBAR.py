@@ -1,11 +1,7 @@
-# Graphic User Interface 
-# Searchbar 
-# INPUT: user types out the ISBN, author (exact) or title (exact)
-# OUTPUT: prints out results from the database 
-
+# Graphic User Interface
 from tkinter import *
 
-# function located in datbase_holder.py, pulls rows of the database that correspond to search
+# in tkinter canvas/window where every graphical element is located in root
 from database_holder import SearchData
 
 root = Tk()
@@ -20,28 +16,36 @@ Output: new window with a graphic representation of the database
 def displayData(result):
     # rows represent one book in the database
     # len(result) represents how many books were found by search function in the database
-    
-    # adds header for the search bar results
-     if (len(result[0]) == 6):
-        header = ('ISBN', 'Title', 'Author', 'Published', 'Owner of the book', 'Current holder')
-        result.insert(0, header)
-
     root2 = Tk()
-    for i in range(len(result)):
-        for j in range(len(result[0])):
-            Label(root2, text = result[i][j], padx = 20).grid(row=i, column=j)
+    print(result)
+
+    # search scenario
+    if (result == []):
+        Label(root2, text="Sorry, there is no such book in the database!", padx=20).pack()
+
+    else:
+        if (len(result[0]) > 3):
+            header = ('ISBN', 'Title', 'Author', 'Published', 'Owner of the book', 'Current holder')
+            result.insert(0, header)
+
+        for i in range(len(result)):
+            for j in range(len(result[0])):
+                Label(root2, text=result[i][j], padx=20).grid(row=i, column=j)
+
 
 # --------------------------------------------------------------------------------------------------
 
 def getSearch():
-    search = searchBar.get()
-    result = SearchData(search)
+    search = searchBar.get()  # gets the info from the search bar text field
+    result = SearchData(search)  # calls the search data function from database_holder
     root.destroy()
     displayData(result)
 
 
 def keydown(e):
     getSearch()
+
+
 # --------------------------------------------------------------------------------------------------
 
 
@@ -54,27 +58,4 @@ searchBar.grid(row=10, column=0)
 # when Enter is pressed, text from the searchbar is retrieved into search variable
 root.bind("<Return>", keydown)
 root.mainloop()
-
-
-# --------------------------------------------------------------------------------------------------
-'''
-!!!NOT READY YET!!!
-Input: rows from the database
-Output: new window with a graphic representation of the database
-'''
-
-
-def displayData(isbn, title, author, year, owner, holder):
-    # rows represent how many rows from the table do we want to output on the screen
-    root2 = Tk()
-    i = 1
-    isbn_display = Label(root2, text=isbn, padx=20).grid(row=i, column=0)
-    title_display = Label(root2, text=title, padx=20).grid(row=i, column=1)
-    author_display = Label(root2, text=author, padx=20).grid(row=i, column=2)
-    year_display = Label(root2, text=year, padx=20).grid(row=i, column=3)
-    owner_display = Label(root2, text=owner, padx=20).grid(row=i, column=4)
-    holder_display = Label(root2, text=holder, padx=20).grid(row=i, column=5)
-
-# --------------------------------------------------------------------------------------------------
-
 
