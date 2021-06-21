@@ -1,8 +1,9 @@
 # Graphic User Interface
+from functools import partial
 from tkinter import *
 
 # in tkinter canvas/window where every graphical element is located in root
-from database_holder import SearchData
+from database_holder import SearchData, update
 
 root = Tk()
 
@@ -17,7 +18,6 @@ def displayData(result):
     # rows represent one book in the database
     # len(result) represents how many books were found by search function in the database
     root2 = Tk()
-    print(result)
 
     # search scenario
     if (result == []):
@@ -32,8 +32,31 @@ def displayData(result):
             for j in range(len(result[0])):
                 Label(root2, text=result[i][j], padx=20).grid(row=i, column=j)
 
+            # condition ensures that button isn't created in the header row
+            # !!! PARTIAL REQUIRES IMPORT FROM FUNCTOOLS
+
+            if (i != 0):
+                borrow = Button(root2, text='Borrow it!', command=partial(changeHolder, result[i][0]), padx=20)
+                borrow.grid(row=i, column=100)
+
 
 # --------------------------------------------------------------------------------------------------
+# input: isbn of the book that user wants to borrow
+def changeHolder(isbn):
+    borrowingScreen = Tk()
+    Label(borrowingScreen, text = "Please enter your name", padx = 20).pack()
+    nameBox = Entry(borrowingScreen, width=75)
+    nameBox.pack()
+    borrowingScreen.bind("<Return>",
+                         lambda e: keydown2(e, nameBox.get(), isbn))
+    borrowingScreen.focus_set()
+
+# updates holder name in the database when enter in "Please give name box" window is pressed
+def keydown2(e, name, isbn):
+    update(name, isbn)
+    updated = SearchData(isbn)
+    # shows that current holder was updated
+    displayData(updated)
 
 def getSearch():
     search = searchBar.get()  # gets the info from the search bar text field
@@ -58,4 +81,6 @@ searchBar.grid(row=10, column=0)
 # when Enter is pressed, text from the searchbar is retrieved into search variable
 root.bind("<Return>", keydown)
 root.mainloop()
+
+# --------------------------------------------------------------------------------------------------
 
